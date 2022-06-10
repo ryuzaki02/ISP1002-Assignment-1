@@ -9,4 +9,6 @@ import Foundation
 
 print("Hello, World!")
 
-let _ = RockPaperScissorGame()
+//RockPaperScissorGame()
+//SearchEngines()
+EmployeeStudentManager()

@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Game: Int, CaseIterable {
+fileprivate enum Game: Int, CaseIterable {
     case Rock = 0, Paper, Scissor
     
-    func getName() -> String {
+    fileprivate func getName() -> String {
         switch self {
         case .Rock:
             return "rock"
@@ -21,7 +21,7 @@ enum Game: Int, CaseIterable {
         }
     }
     
-    static func getGameChoice(choice: String) -> Game? {
+    fileprivate static func getGameChoice(choice: String) -> Game? {
         switch choice {
         case "rock":
             return .Rock
@@ -34,7 +34,7 @@ enum Game: Int, CaseIterable {
         }
     }
     
-    func compareChoice(choice2: Game) -> ComparisonResult {
+    fileprivate func compareChoice(choice2: Game) -> ComparisonResult {
         switch self {
         case .Rock:
             return choice2 == .Rock ? .orderedSame : (choice2 == .Paper ? .orderedDescending : .orderedAscending)
@@ -47,13 +47,14 @@ enum Game: Int, CaseIterable {
 }
 
 public class RockPaperScissorGame {
-    var exit = false
+    private var exit = false
     
+    @discardableResult
     public init() {
         showInstructions()
     }
     
-    func showInstructions() {
+    private func showInstructions() {
         while(!exit) {
             print("Play with: \n1. Computer\n2. Two Player")
             if let input = readLine() {
@@ -73,7 +74,7 @@ public class RockPaperScissorGame {
         }
     }
     
-    func startGame(vsComp: Bool = false) {
+    private func startGame(vsComp: Bool = false) {
         print("Enter 1st Player choice. (Rock, Paper or Scissor)")
         if let player = getPlayerInput() {
             let random = Int.random(in: 0..<3)
@@ -95,14 +96,14 @@ public class RockPaperScissorGame {
         }
     }
     
-    func getPlayerInput() -> Game? {
+    private func getPlayerInput() -> Game? {
         guard let playerChoice = readLine(),
            playerChoice.caseInsensitiveCompare(Game.Rock.getName()) == .orderedSame || playerChoice.caseInsensitiveCompare(Game.Paper.getName()) == .orderedSame || playerChoice.caseInsensitiveCompare(Game.Scissor.getName()) == .orderedSame,
               let player = Game.getGameChoice(choice: playerChoice.lowercased()) else { return nil }
         return player
     }
     
-    func showResult(comparison: ComparisonResult, vsComp: Bool) {
+    private func showResult(comparison: ComparisonResult, vsComp: Bool) {
         switch comparison {
         case .orderedAscending:
             print("\(vsComp ? "Player" : "Player 1") is winner!")
@@ -114,7 +115,7 @@ public class RockPaperScissorGame {
         playAgain()
     }
     
-    func playAgain() {
+    private func playAgain() {
         print("\n")
         print("Do you want to play again? (Y/N)")
         if let choice = readLine() {
