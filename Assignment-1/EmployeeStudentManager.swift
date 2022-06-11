@@ -20,14 +20,20 @@ fileprivate enum Command: String, CaseIterable {
 class EmployeeStudentManager {
     private var students: [Student] = []
     private var employees: [Employee] = []
+    private var quit = false
     
     @discardableResult
     init() {
-        showCommands()
+        print("This is Student Employee manager")
+        while !quit {
+            showCommands()
+        }
     }
     
+    
     private func showCommands() {
-        print("Commands available in this manager: -")
+        print("\n")
+        print("Commands :-")
         for command in Command.allCases {
             print(command.rawValue)
         }
@@ -49,11 +55,13 @@ class EmployeeStudentManager {
             case .ListAll:
                 listAll()
             case .Quit:
-                print("See you later!!!")
+                quitManager()
+            }
+            if command != .Quit {
+                tryAgain()
             }
         } else {
             print("Invalid input. Please try again.")
-            showCommands()
         }
     }
     
@@ -146,6 +154,8 @@ class EmployeeStudentManager {
         }
         if !found {
             print("Student not found in the system.")
+        } else {
+            print("Student deleted.")
         }
     }
     
@@ -162,10 +172,18 @@ class EmployeeStudentManager {
         }
         if !found {
             print("Employee not found in the system.")
+        } else {
+            print("Employee deleted.")
         }
     }
     
     private func listAll() {
+        guard students.count == 0,
+           employees.count == 0 else {
+            print("No data available.")
+            return
+        }
+        
         var i = 1
         for student in students {
             print("Student \(i) - ")
@@ -180,6 +198,28 @@ class EmployeeStudentManager {
             print("Employee Number: \(employee.number)")
             print("Employee Name: \(employee.name)")
             print("Employee Address: \(employee.address)")
+        }
+    }
+    
+    private func quitManager() {
+        print("See you later!!!")
+        quit = true
+    }
+    
+    private func tryAgain() {
+        print("Do you want to try more command? (Y/N)")
+        if let input = readLine() {
+            if input.caseInsensitiveCompare("y") == .orderedSame {
+                quit = false
+            } else if input.caseInsensitiveCompare("n") == .orderedSame  {
+                quitManager()
+            } else {
+                print("Wrong input. Try again")
+                tryAgain()
+            }
+        } else {
+            print("Wrong input. Try again")
+            tryAgain()
         }
     }
 }

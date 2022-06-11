@@ -57,6 +57,7 @@ public class RockPaperScissorGame {
     private func showInstructions() {
         while(!exit) {
             print("Play with: \n1. Computer\n2. Two Player")
+            print("Please select one option from above.")
             if let input = readLine() {
                 switch input {
                 case "1":
