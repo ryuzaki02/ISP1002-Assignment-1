@@ -13,7 +13,7 @@ class TaskManager {
     enum Task: String, CaseIterable {
         case RockPaperScissor = "Rock Paper Scissor"
         case SearchEngines = "Enum"
-        case Manager = "Employee-Student Manager"
+        case Manager = "Employee Student Manager"
         case Quit
     }
     
