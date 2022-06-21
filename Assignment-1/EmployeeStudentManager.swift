@@ -92,7 +92,7 @@ class EmployeeStudentManager {
         }
         if let _ = students.first(where: { $0.number == studentNumber }) {
             print("Student already exists. Please try again.")
-            addEmployee()
+            addStudent()
         } else {
             print("Please enter student name")
             if let name = readLine() {
@@ -178,8 +178,7 @@ class EmployeeStudentManager {
     }
     
     private func listAll() {
-        guard students.count == 0,
-           employees.count == 0 else {
+        guard students.count > 0 || employees.count > 0 else {
             print("No data available.")
             return
         }
@@ -190,6 +189,8 @@ class EmployeeStudentManager {
             print("Student Number: \(student.number)")
             print("Student Name: \(student.name)")
             print("Student Address: \(student.address)")
+            print("\n")
+            i += 1
         }
         i = 1
         print("\n")
@@ -198,6 +199,8 @@ class EmployeeStudentManager {
             print("Employee Number: \(employee.number)")
             print("Employee Name: \(employee.name)")
             print("Employee Address: \(employee.address)")
+            print("\n")
+            i += 1
         }
     }
     
